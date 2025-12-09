@@ -1,0 +1,52 @@
+# EC2 TUI Configuration File
+# Copy this file to ~/.config/ec2-tui/config.toml or ./config.toml and customize
+
+[ui]
+# Default AWS region to load on startup
+default_region = "us-east-1"
+
+# Auto-refresh interval in seconds (0 to disable auto-refresh)
+refresh_interval_seconds = 30
+
+# Theme setting:
+#   "omarchy" - automatically use the theme from Omarchy config (default)
+#   Or specify a Textual theme name directly:
+#     nord, gruvbox, catppuccin-mocha, catppuccin-latte, dracula,
+#     tokyo-night, monokai, flexoki, solarized-light, textual-dark, textual-light
+theme = "omarchy"
+
+[retry]
+# Enable automatic retry for InsufficientInstanceCapacity errors
+enabled = true
+
+# Interval between retry attempts in seconds
+interval_seconds = 60
+
+# Maximum number of retry attempts (60 attempts at 60s = 1 hour)
+max_attempts = 60
+
+[notifications]
+# Enable desktop notifications
+enabled = true
+
+# Notification urgency level: low, normal, critical
+urgency = "normal"
+
+[saved_instance_types]
+# Quick-select instance types (will be populated as you validate new types)
+types = [
+    "t3.micro",
+    "t3.small",
+    "t3.medium",
+    "t3.large",
+    "m5.large",
+    "m5.xlarge",
+    "m5.2xlarge",
+]
+
+[aws]
+# Use AWS CLI credentials from ~/.aws/credentials
+use_cli_credentials = true
+
+# Optional: Override AWS profile name (if not using default)
+# profile = "my-profile"

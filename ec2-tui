@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# EC2 TUI launcher script
+
+# Resolve the real path of this script (follows symlinks)
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
+
+# Change to the project directory
+cd "$SCRIPT_DIR" || exit 1
+
+# Run the application using uv with main.py
+exec uv run python main.py "$@"

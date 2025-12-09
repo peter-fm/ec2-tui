@@ -1,0 +1,164 @@
+/* EC2 TUI CSS Styling */
+
+Screen {
+    background: $surface;
+}
+
+/* Header */
+Header {
+    background: $boost;
+    color: $text;
+}
+
+/* Controls Bar */
+ControlsBar {
+    height: auto;
+    padding: 1;
+    background: $panel;
+}
+
+ControlsBar .control-label {
+    width: auto;
+    padding: 0 1;
+    content-align: center middle;
+}
+
+ControlsBar .region-select {
+    width: auto;
+    min-width: 15;
+    max-width: 20;
+}
+
+ControlsBar .name-filter {
+    width: 3fr;
+    margin: 0 1;
+}
+
+ControlsBar .status-select {
+    width: 1fr;
+    max-width: 15;
+}
+
+/* Filter Bar (legacy - kept for compatibility) */
+FilterBar {
+    height: auto;
+    padding: 1;
+    background: $panel;
+}
+
+FilterBar .filter-label {
+    width: auto;
+    padding: 0 1;
+    content-align: center middle;
+}
+
+FilterBar Input {
+    width: 3fr;
+    margin: 0 1;
+}
+
+FilterBar Select {
+    width: 1fr;
+    max-width: 15;
+}
+
+/* Region Selector (legacy - kept for compatibility) */
+RegionSelector {
+    height: auto;
+    padding: 1;
+    background: $panel;
+}
+
+RegionSelector .region-label {
+    width: auto;
+    padding: 0 1;
+    content-align: center middle;
+}
+
+RegionSelector Select {
+    width: auto;
+    min-width: 20;
+}
+
+/* Instance Table */
+InstanceTable {
+    border: solid $primary;
+    height: 100%;
+}
+
+InstanceTable > .datatable--header {
+    background: $boost;
+    color: $text;
+    text-style: bold;
+}
+
+InstanceTable > .datatable--cursor {
+    background: $secondary;
+}
+
+/* Retry Panel */
+RetryPanel {
+    border: solid $warning;
+    background: $panel;
+    height: auto;
+    max-height: 10;
+    padding: 1;
+}
+
+#retry-header {
+    text-style: bold;
+    color: $warning;
+    padding: 0 0 1 0;
+}
+
+#retry-content {
+    color: $text;
+}
+
+/* Footer */
+Footer {
+    background: $boost;
+    height: auto;
+    padding: 1;
+}
+
+#shortcuts {
+    width: 100%;
+    text-align: center;
+}
+
+/* Instance Type Modal */
+InstanceTypeModal {
+    align: center middle;
+}
+
+#instance-type-dialog {
+    width: 60;
+    height: auto;
+    border: thick $background 80%;
+    background: $surface;
+    padding: 1 2;
+}
+
+#quick-select {
+    height: auto;
+    margin: 1 0;
+    grid-size: 3;
+    grid-gutter: 1;
+}
+
+.quick-button {
+    width: 100%;
+}
+
+#custom-type-input {
+    margin: 1 0;
+}
+
+#buttons {
+    width: 100%;
+    height: auto;
+    grid-size: 2;
+    grid-gutter: 1;
+    margin: 1 0 0 0;
+}
