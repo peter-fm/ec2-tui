@@ -19,7 +19,7 @@ from ..utils.exceptions import ConfigurationError
 class UIConfig(BaseModel):
     """UI configuration."""
 
-    default_region: str = Field(default="us-east-1")
+    default_region: str = Field(default="eu-west-1")
     refresh_interval_seconds: int = Field(default=30, ge=0)
     theme: str = Field(default="omarchy")
 

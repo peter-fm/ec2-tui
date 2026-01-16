@@ -2,9 +2,9 @@
 
 DEFAULT_CONFIG = {
     "ui": {
-        "default_region": "us-east-1",
+        "default_region": "eu-west-1",
         "refresh_interval_seconds": 30,
-        "theme": "dark",
+        "theme": "omarchy",  # Auto-detects Omarchy on Arch Linux, falls back to textual-dark
     },
     "retry": {
         "enabled": True,

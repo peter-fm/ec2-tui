@@ -12,9 +12,13 @@ def get_omarchy_theme() -> Optional[str]:
     """
     Get the current theme from Omarchy ghostty config.
 
+    Omarchy is an Arch Linux theming system. This function checks for the
+    Omarchy config, which will not exist on non-Arch systems.
+
     Returns:
-        Theme name if found, None otherwise.
+        Theme name if found, None otherwise (returns None on non-Arch systems).
     """
+    # Omarchy is specific to Arch Linux - check if config exists
     ghostty_conf = Path.home() / ".config" / "omarchy" / "current" / "theme" / "ghostty.conf"
 
     if not ghostty_conf.exists():
@@ -93,14 +97,16 @@ def get_textual_theme(config_theme: Optional[str] = None) -> str:
         config_theme: Theme from config. If "omarchy" or None, uses Omarchy theme.
 
     Returns:
-        Textual theme name to use.
+        Valid Textual theme name (e.g., "textual-dark", "nord", "gruvbox").
     """
     # If config specifies "omarchy" or is not set, use Omarchy theme detection
+    # On non-Arch systems, this will return "textual-dark" as the fallback
     if config_theme is None or config_theme == "omarchy":
         omarchy_theme = get_omarchy_theme()
         return map_theme_to_textual(omarchy_theme)
 
     # Otherwise, use the specific theme name from config
+    # Ensure it's a valid Textual theme name
     return config_theme
 
 

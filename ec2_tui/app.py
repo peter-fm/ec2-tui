@@ -55,9 +55,6 @@ class EC2TUIApp(App):
             print(f"Configuration error: {e}")
             self.config = Config()
 
-        # Set theme based on configuration
-        self.theme = get_textual_theme(self.config.ui.theme)
-
         # Set initial region
         self.current_region = self.config.ui.default_region
 
@@ -74,6 +71,9 @@ class EC2TUIApp(App):
 
     def on_mount(self) -> None:
         """Initialize app on mount."""
+        # Set theme based on configuration (must be done after app is mounted)
+        self.theme = get_textual_theme(self.config.ui.theme)
+
         # Initialize services with current region
         self._initialize_services()
 

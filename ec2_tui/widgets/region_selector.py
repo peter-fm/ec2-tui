@@ -19,7 +19,7 @@ class RegionChanged(Message):
 class RegionSelector(Horizontal):
     """Widget for selecting AWS region."""
 
-    def __init__(self, default_region: str = "us-east-1"):
+    def __init__(self, default_region: str = "eu-west-1"):
         """Initialize region selector with default region."""
         super().__init__()
         self.default_region = default_region

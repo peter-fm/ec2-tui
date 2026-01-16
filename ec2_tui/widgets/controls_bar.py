@@ -12,7 +12,7 @@ from ..services.ec2_service import EC2Service
 class ControlsBar(Horizontal):
     """Combined controls bar for region, name filter, and status filter."""
 
-    def __init__(self, default_region: str = "us-east-1") -> None:
+    def __init__(self, default_region: str = "eu-west-1") -> None:
         """Initialize controls bar."""
         super().__init__()
         self.default_region = default_region

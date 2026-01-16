@@ -63,7 +63,7 @@ Edit the configuration file to customize settings:
 
 ```toml
 [ui]
-default_region = "us-east-1"        # Default AWS region on startup
+default_region = "eu-west-1"        # Default AWS region on startup
 refresh_interval_seconds = 30       # Auto-refresh interval (0 to disable)
 theme = "omarchy"                   # "omarchy" for auto-sync, or specific theme name
 
@@ -252,7 +252,7 @@ If desktop notifications aren't working:
 
 If you see "AWS credentials not found":
 1. Run `aws configure` to set up credentials
-2. Verify credentials: `aws ec2 describe-instances --region us-east-1`
+2. Verify credentials: `aws ec2 describe-instances --region eu-west-1`
 3. Check IAM permissions include `ec2:DescribeInstances`, `ec2:StartInstances`, `ec2:StopInstances`, `ec2:ModifyInstanceAttribute`
 
 ### Permission Denied Errors

@@ -43,7 +43,7 @@ class MainScreen(Screen):
     }
     """
 
-    def __init__(self, default_region: str = "us-east-1"):
+    def __init__(self, default_region: str = "eu-west-1"):
         """Initialize main screen with default region."""
         super().__init__()
         self.default_region = default_region

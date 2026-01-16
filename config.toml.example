@@ -3,7 +3,7 @@
 
 [ui]
 # Default AWS region to load on startup
-default_region = "us-east-1"
+default_region = "eu-west-1"
 
 # Auto-refresh interval in seconds (0 to disable auto-refresh)
 refresh_interval_seconds = 30
