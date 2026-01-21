@@ -44,8 +44,13 @@ class EC2TUIApp(App):
     name_filter: reactive[str] = reactive("", init=False)
     status_filter: reactive[str] = reactive("all", init=False)
 
-    def __init__(self):
-        """Initialize application."""
+    def __init__(self, profile: Optional[str] = None, region: Optional[str] = None):
+        """Initialize application.
+
+        Args:
+            profile: AWS CLI profile name (overrides config file).
+            region: AWS region (overrides config file).
+        """
         super().__init__()
 
         # Load configuration first
@@ -54,6 +59,12 @@ class EC2TUIApp(App):
         except ConfigurationError as e:
             print(f"Configuration error: {e}")
             self.config = Config()
+
+        # Override config with CLI arguments
+        if profile is not None:
+            self.config.aws.profile = profile
+        if region is not None:
+            self.config.ui.default_region = region
 
         # Set initial region
         self.current_region = self.config.ui.default_region
@@ -378,9 +389,14 @@ class EC2TUIApp(App):
     ]
 
 
-def main() -> None:
-    """Main entry point."""
-    app = EC2TUIApp()
+def main(profile: Optional[str] = None, region: Optional[str] = None) -> None:
+    """Main entry point.
+
+    Args:
+        profile: AWS CLI profile name (overrides config file).
+        region: AWS region (overrides config file).
+    """
+    app = EC2TUIApp(profile=profile, region=region)
     app.run()
 
 
