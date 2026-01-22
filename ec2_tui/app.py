@@ -168,6 +168,8 @@ class EC2TUIApp(App):
         if self.ec2_service is None:
             return
 
+        self.notify(f"Starting instance {instance_name}...", severity="information")
+
         try:
             await asyncio.to_thread(self.ec2_service.start_instance, instance_id)
             self.notify(f"Started instance {instance_name}", severity="information")
@@ -194,6 +196,8 @@ class EC2TUIApp(App):
         """Stop an EC2 instance."""
         if self.ec2_service is None:
             return
+
+        self.notify(f"Stopping instance {instance_name}...", severity="information")
 
         try:
             await asyncio.to_thread(self.ec2_service.stop_instance, instance_id)

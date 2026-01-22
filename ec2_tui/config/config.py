@@ -70,7 +70,7 @@ class Config(BaseModel):
 
     def to_dict(self) -> dict:
         """Convert config to dictionary for saving."""
-        return self.model_dump()
+        return self.model_dump(exclude_none=True)
 
 
 def get_config_path() -> Path:
