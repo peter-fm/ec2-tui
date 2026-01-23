@@ -127,38 +127,5 @@ Footer {
     text-align: center;
 }
 
-/* Instance Type Modal */
-InstanceTypeModal {
-    align: center middle;
-}
-
-#instance-type-dialog {
-    width: 60;
-    height: auto;
-    border: thick $background 80%;
-    background: $surface;
-    padding: 1 2;
-}
-
-#quick-select {
-    height: auto;
-    margin: 1 0;
-    grid-size: 3;
-    grid-gutter: 1;
-}
-
-.quick-button {
-    width: 100%;
-}
-
-#custom-type-input {
-    margin: 1 0;
-}
-
-#buttons {
-    width: 100%;
-    height: auto;
-    grid-size: 2;
-    grid-gutter: 1;
-    margin: 1 0 0 0;
-}
+/* Instance Type Modal - Now uses embedded CSS in widget */
+/* Keeping minimal styling here for backwards compatibility */

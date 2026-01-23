@@ -110,6 +110,7 @@ class EC2TUIApp(App):
             self.ec2_service = EC2Service(
                 region=self.current_region,
                 profile=self.config.aws.profile,
+                app_config=self.config,
             )
             self.retry_service = RetryService(
                 ec2_service=self.ec2_service,
@@ -348,12 +349,18 @@ class EC2TUIApp(App):
             )
             return
 
+        # Get pricing data for current region
+        pricing_data = None
+        if self.current_region in self.config.pricing:
+            pricing_data = self.config.pricing[self.current_region]
+
         # Show modal
         modal = InstanceTypeModal(
             instance_id=instance.instance_id,
             instance_name=instance.name,
             current_type=instance.instance_type,
             saved_types=self.config.saved_instance_types.types,
+            pricing_data=pricing_data,
         )
 
         def handle_modal_result(result: str | None) -> None:

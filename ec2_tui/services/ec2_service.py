@@ -1,6 +1,6 @@
 """AWS EC2 service wrapper."""
 
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 import boto3
 from botocore.config import Config
@@ -15,17 +15,21 @@ from ..utils.exceptions import (
     ValidationError,
 )
 
+if TYPE_CHECKING:
+    from ..config.config import Config as AppConfig
+
 
 class EC2Service:
     """AWS EC2 service wrapper."""
 
-    def __init__(self, region: str, profile: Optional[str] = None):
+    def __init__(self, region: str, profile: Optional[str] = None, app_config: Optional["AppConfig"] = None):
         """
         Initialize EC2 service.
 
         Args:
             region: AWS region name.
             profile: AWS CLI profile name (None for default).
+            app_config: Application configuration for pricing data (optional).
 
         Raises:
             ConfigurationError: If AWS credentials are not configured.
@@ -37,6 +41,7 @@ class EC2Service:
 
             self.ec2 = session.client("ec2", config=config)
             self.region = region
+            self.app_config = app_config
 
         except NoCredentialsError:
             raise ConfigurationError(
@@ -73,7 +78,21 @@ class EC2Service:
             instances = []
             for reservation in response["Reservations"]:
                 for instance_data in reservation["Instances"]:
-                    instance = Instance.from_boto3(instance_data, self.region)
+                    instance_type = instance_data["InstanceType"]
+
+                    # Get pricing info from config if available
+                    price_per_hour = None
+                    gpu_count = 0
+                    if self.app_config:
+                        price_per_hour = self.app_config.get_price(self.region, instance_type)
+                        gpu_count = self.app_config.get_gpu_count(self.region, instance_type)
+
+                    instance = Instance.from_boto3(
+                        instance_data,
+                        self.region,
+                        price_per_hour=price_per_hour,
+                        gpu_count=gpu_count
+                    )
 
                     # Apply name filter
                     if instance.matches_filter(name_filter, "all"):

@@ -52,6 +52,32 @@ class AWSConfig(BaseModel):
     profile: Optional[str] = Field(default=None)
 
 
+class InstanceTypeInfo(BaseModel):
+    """Instance type information."""
+
+    price: float
+    gpu: bool
+
+
+class PricingConfig(BaseModel):
+    """Pricing configuration."""
+
+    # Region-based pricing: {region: {instance_type: InstanceTypeInfo}}
+    pricing: dict[str, dict[str, InstanceTypeInfo]] = Field(default_factory=dict)
+
+    def get_price(self, region: str, instance_type: str) -> Optional[float]:
+        """Get price for an instance type in a specific region."""
+        if region in self.pricing and instance_type in self.pricing[region]:
+            return self.pricing[region][instance_type].price
+        return None
+
+    def is_gpu(self, region: str, instance_type: str) -> bool:
+        """Check if an instance type has GPU in a specific region."""
+        if region in self.pricing and instance_type in self.pricing[region]:
+            return self.pricing[region][instance_type].gpu
+        return False
+
+
 class Config(BaseModel):
     """Main configuration model."""
 
@@ -62,11 +88,44 @@ class Config(BaseModel):
         default_factory=SavedInstanceTypesConfig
     )
     aws: AWSConfig = Field(default_factory=AWSConfig)
+    pricing: dict[str, dict[str, dict[str, bool | float]]] = Field(default_factory=dict)
 
     def save_instance_type(self, instance_type: str) -> None:
         """Add an instance type to saved types if not already present."""
         if instance_type not in self.saved_instance_types.types:
             self.saved_instance_types.types.append(instance_type)
+
+    def get_price(self, region: str, instance_type: str) -> Optional[float]:
+        """Get price for an instance type in a specific region."""
+        if region in self.pricing and instance_type in self.pricing[region]:
+            info = self.pricing[region][instance_type]
+            if isinstance(info, dict) and "price" in info:
+                return float(info["price"])
+        return None
+
+    def get_gpu_count(self, region: str, instance_type: str) -> int:
+        """Get number of GPUs for an instance type in a specific region."""
+        if region in self.pricing and instance_type in self.pricing[region]:
+            info = self.pricing[region][instance_type]
+            if isinstance(info, dict) and "gpus" in info:
+                return int(info["gpus"])
+        return 0
+
+    def get_vcpu_count(self, region: str, instance_type: str) -> Optional[int]:
+        """Get number of vCPUs for an instance type in a specific region."""
+        if region in self.pricing and instance_type in self.pricing[region]:
+            info = self.pricing[region][instance_type]
+            if isinstance(info, dict) and "vcpus" in info:
+                return int(info["vcpus"])
+        return None
+
+    def get_memory_gb(self, region: str, instance_type: str) -> Optional[float]:
+        """Get memory in GB for an instance type in a specific region."""
+        if region in self.pricing and instance_type in self.pricing[region]:
+            info = self.pricing[region][instance_type]
+            if isinstance(info, dict) and "memory_gb" in info:
+                return float(info["memory_gb"])
+        return None
 
     def to_dict(self) -> dict:
         """Convert config to dictionary for saving."""

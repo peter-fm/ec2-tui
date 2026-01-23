@@ -23,6 +23,9 @@ class InstanceTable(DataTable):
             "Instance ID",
             "Status",
             "Type",
+            "GPU",
+            "$/hr",
+            "Est. Spend",
             "Internal IP",
             "AZ",
         )
@@ -43,15 +46,37 @@ class InstanceTable(DataTable):
                 "-",
                 "-",
                 "-",
+                "-",
+                "-",
+                "-",
                 key="no-instances",
             )
         else:
             for instance in instances:
+                # GPU indicator - show count if GPUs present
+                if instance.gpu_count > 0:
+                    gpu_indicator = str(instance.gpu_count)
+                else:
+                    gpu_indicator = "-"
+
+                # Price per hour
+                price_str = f"${instance.price_per_hour:.4f}" if instance.price_per_hour else "-"
+
+                # Estimated spend (only for running instances)
+                spend_str = "-"
+                if instance.state == "running":
+                    estimated_spend = instance.get_estimated_spend()
+                    if estimated_spend is not None:
+                        spend_str = f"${estimated_spend:.2f}"
+
                 self.add_row(
                     instance.name,
                     instance.instance_id,
                     instance.state,
                     instance.instance_type,
+                    gpu_indicator,
+                    price_str,
+                    spend_str,
                     instance.private_ip or "-",
                     instance.availability_zone or "-",
                     key=instance.instance_id,
