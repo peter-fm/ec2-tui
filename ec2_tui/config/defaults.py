@@ -69,6 +69,16 @@ DEFAULT_CONFIG = {
             "m6i.16xlarge": {"price": 3.424, "gpus": 0, "vcpus": 64, "memory_gb": 256},
             "m6i.24xlarge": {"price": 5.136, "gpus": 0, "vcpus": 96, "memory_gb": 384},
             "m6i.32xlarge": {"price": 6.848, "gpus": 0, "vcpus": 128, "memory_gb": 512},
+            # M7i instances (general purpose, latest gen - Sapphire Rapids)
+            "m7i.large": {"price": 0.1134, "gpus": 0, "vcpus": 2, "memory_gb": 8},
+            "m7i.xlarge": {"price": 0.2268, "gpus": 0, "vcpus": 4, "memory_gb": 16},
+            "m7i.2xlarge": {"price": 0.4536, "gpus": 0, "vcpus": 8, "memory_gb": 32},
+            "m7i.4xlarge": {"price": 0.9072, "gpus": 0, "vcpus": 16, "memory_gb": 64},
+            "m7i.8xlarge": {"price": 1.8144, "gpus": 0, "vcpus": 32, "memory_gb": 128},
+            "m7i.12xlarge": {"price": 2.7216, "gpus": 0, "vcpus": 48, "memory_gb": 192},
+            "m7i.16xlarge": {"price": 3.6288, "gpus": 0, "vcpus": 64, "memory_gb": 256},
+            "m7i.24xlarge": {"price": 5.4432, "gpus": 0, "vcpus": 96, "memory_gb": 384},
+            "m7i.48xlarge": {"price": 10.8864, "gpus": 0, "vcpus": 192, "memory_gb": 768},
             # C5 instances (compute optimized)
             "c5.large": {"price": 0.095, "gpus": 0, "vcpus": 2, "memory_gb": 4},
             "c5.xlarge": {"price": 0.19, "gpus": 0, "vcpus": 4, "memory_gb": 8},
