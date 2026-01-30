@@ -34,7 +34,7 @@ uv sync
 To run EC2 TUI from anywhere with a single command, create a symlink to the launcher script:
 
 ```bash
-ln -s /home/pete/projects/tools/ec2-tui/ec2-tui ~/.local/bin/ec2-tui
+ln -s /home/<username>/projects/tools/ec2-tui/ec2-tui ~/.local/bin/ec2-tui
 ```
 
 Make sure `~/.local/bin` is in your PATH. Then you can run:
